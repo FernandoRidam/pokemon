@@ -7,7 +7,16 @@ import {
   TextField,
   Hidden,
   Link,
+  IconButton,
 } from '@material-ui/core';
+
+import {
+  Close,
+} from '@material-ui/icons';
+
+import {
+  useStore
+} from '../../store';
 
 import logo from '../../assets/logo.png';
 import competi from '../../assets/competi.png';
@@ -15,6 +24,10 @@ import competi from '../../assets/competi.png';
 import useStyles from './styles';
 
 export function Layout({ children }) {
+  const {
+    pokemon,
+  } = useStore();
+
   const Styles = useStyles();
 
   return (
@@ -32,6 +45,18 @@ export function Layout({ children }) {
           placeholder="Search Pokemon"
           size="small"
           className={ Styles.search }
+          value={ pokemon.search }
+          onChange={ event => pokemon.handleChangeSearch( event.target.value )}
+          InputProps={{
+            endAdornment: pokemon.search && (
+              <IconButton
+                color="primary"
+                onClick={() => pokemon.handleChangeSearch('')}
+              >
+                <Close />
+              </IconButton>
+            )
+          }}
         />
 
         <Button

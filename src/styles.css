@@ -9,8 +9,8 @@ body {
     -webkit-user-drag: none;
   }
 
-  .makeStyles-pokeImage-18,
   .makeStyles-logoPokemon-2,
-  .makeStyles-logoCompeti-4 {
+  .makeStyles-logoCompeti-4,
+  #poke-img {
     -webkit-user-drag: none;
   }

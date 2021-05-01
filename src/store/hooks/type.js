@@ -8,29 +8,28 @@ import {
   getTypes,
 } from '../../services';
 
+import {
+  transformType,
+} from '../../utils/helpers';
+
 export default function useMovies() {
   const [ data, setData ] = useState([]);
-  const [ loading, setLoading ] = useState([]);
+  const [ loading, setLoading ] = useState( false );
 
   const loadTypes = useCallback( async () => {
     setLoading( true );
 
     try {
-      const { success, data } = await getTypes();
+      const { success, types } = await getTypes();
 
       if( !success ) return false;
 
       setData(
-        data.results
-          .map( type => {
-            return {
-              ...type,
-              name: type.name.charAt( 0 ).toUpperCase() + type.name.slice( 1 )
-            }
-          })
+        types
           .sort(( firstEl, secondEl ) => {
             return firstEl.name < secondEl.name ? -1 : 1;
           })
+          .map( type => transformType( type ))
         );
 
       setLoading( false );
@@ -43,9 +42,9 @@ export default function useMovies() {
     }
   }, []);
 
-  const clearTypes = (() => {
+  const clearTypes = useCallback(() => {
     setData([]);
-  })
+  }, [])
 
   return useMemo(() => ({
     data,
