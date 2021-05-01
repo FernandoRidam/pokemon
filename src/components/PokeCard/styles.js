@@ -18,13 +18,18 @@ const useStyles = makeStyles(( theme ) => ({
     height: 225,
   },
 
+  pokeImageMobile: {
+    width: 105,
+    height: 105,
+  },
+
   pokeName: {
     position: 'absolute',
     bottom: - 25,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '60%',
+    wminWidth: '60%',
     padding: 5,
     backgroundColor: theme.palette.primary.main,
     color: '#FFF',
@@ -38,7 +43,11 @@ const useStyles = makeStyles(( theme ) => ({
     position: 'absolute',
     top: - 15,
     right: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 3,
+    minWidth: 65,
     backgroundColor: ({ typeColor }) => typeColor,
     color: '#FFF'
   },

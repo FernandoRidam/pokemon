@@ -1,12 +1,8 @@
-import React, {
-  useState,
-} from 'react';
+import React from 'react';
 
 import {
   Container,
   Grid,
-  Paper,
-  Typography,
 } from '@material-ui/core';
 
 import {
@@ -14,16 +10,22 @@ import {
   PaginationItem,
 } from '@material-ui/lab';
 
+import {
+  useStore
+} from '../../store';
+
 import useStyles from './styles';
 
 export function PokeList({ children }) {
+  const { pokemon } = useStore();
+
   const Styles = useStyles();
 
   return (
     <Container className={ Styles.pokeList }>
       <Grid
         container
-        spacing={ 6 }
+        spacing={ 5 }
         justify="center"
       >
         { children }
@@ -31,10 +33,11 @@ export function PokeList({ children }) {
 
       <Container className={ Styles.pagination }>
         <Pagination
-          count={ 10 }
+          count={ pokemon.pages }
           color="primary"
           shape="rounded"
           size="small"
+          onChange={( event, page ) => pokemon.handleChangePage( page )}
           renderItem={( item ) => (
             <PaginationItem
               { ...item }

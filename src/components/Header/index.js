@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-} from 'react';
+import React from 'react';
 
 import {
   Container,
@@ -20,15 +17,12 @@ import {
 import useStyles from './styles';
 
 export function Header() {
-  const { types } = useStore();
+  const {
+    types,
+    pokemon,
+  } = useStore();
 
   const Styles = useStyles();
-
-  const [ type, setType ] = useState( null );
-
-  useEffect(() => {
-    types.loadTypes();
-  }, []);
 
   return (
     <Container className={ Styles.header }>
@@ -37,10 +31,10 @@ export function Header() {
         options={ types.data }
         getOptionLabel={( option ) => option.name }
         noOptionsText="Empty..."
-        value={ type }
+        value={ pokemon.type }
         disabled={ types.loading }
         onChange={( event, newValue ) => {
-          setType( newValue );
+          pokemon.handleChangeType( newValue );
         }}
         renderInput={(params) => <Container className={ Styles.autoField }>
           <TextField

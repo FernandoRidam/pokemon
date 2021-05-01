@@ -1,5 +1,5 @@
 import React, {
-  useState,
+  useEffect,
 } from 'react';
 
 import {
@@ -14,10 +14,26 @@ import {
   PokeCard,
 } from '../../components';
 
+import {
+  useStore
+} from '../../store';
+
 import useStyles from './styles';
 
 export function Main() {
+  const {
+    types,
+    pokemon,
+  } = useStore();
+
   const Styles = useStyles();
+
+  useEffect(() => {
+    pokemon.loadPokemon();
+    types.loadTypes();
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container maxWidth={ false } className={ Styles.container }>
@@ -27,17 +43,11 @@ export function Main() {
         <Divider />
 
         <PokeList>
-          <PokeCard />
-
-          <PokeCard />
-
-          <PokeCard />
-
-          <PokeCard />
-
-          <PokeCard />
-
-          <PokeCard />
+          {
+            pokemon.filteredData.length > 0
+              ? pokemon.filteredData.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
+              : pokemon.data.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
+          }
         </PokeList>
 
         <Footer />
