@@ -3,11 +3,16 @@ import React, {
   useContext,
 } from 'react';
 
-import useType from './hooks/type';
-import usePokemon from './hooks/pokemon';
+import {
+  usePokemon,
+  useType,
+  useUser,
+  useModalLogin,
+  useModalPokemon,
+} from './hooks';
 
 export const store = createContext({
-  types: {
+  type: {
     data: [],
     loading: false,
     clearTypes: () => {},
@@ -24,26 +29,54 @@ export const store = createContext({
     type: '',
     search: '',
     clearPokemon: () => {},
-    handleChangePage: () => {},
-    handleChangeType: () => {},
-    handleChangeSearch: () => {},
+    handleChangePage: ( page ) => {},
+    handleChangeType: ( type ) => {},
+    handleChangeSearch: ( search ) => {},
     loadPokemon: async () => {
       return true;
     }
+  },
+
+  user: {
+    data: null,
+    myPokemon: [],
+    logIn: ( username ) => {},
+    logOut: () => {},
+    capturePokemon: ( pokemon ) => {},
+    releasePokemon: ( pokemonIndex ) => {},
+  },
+
+  modalLogin: {
+    open: false,
+    openModal: () => {},
+    closeModal: () => {},
+  },
+
+  modalPokemon: {
+    open: false,
+    data: null,
+    openModal: ( data ) => {},
+    closeModal: () => {},
   },
 });
 
 const { Provider } = store;
 
 export function StateProvider({ children }) {
-  const types = useType();
+  const type = useType();
   const pokemon = usePokemon();
+  const user = useUser();
+  const modalLogin = useModalLogin();
+  const modalPokemon = useModalPokemon();
 
   return (
     <Provider
       value={{
-        types,
+        type,
         pokemon,
+        user,
+        modalLogin,
+        modalPokemon,
       }}
     >
       { children }

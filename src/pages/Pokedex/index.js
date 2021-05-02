@@ -18,18 +18,11 @@ import {
   useStore
 } from '../../store';
 
-export function Main() {
+export function Pokedex() {
   const {
     type,
     pokemon,
   } = useStore();
-
-  useEffect(() => {
-    pokemon.loadPokemon();
-    type.loadTypes();
-
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <>
@@ -42,8 +35,8 @@ export function Main() {
       <PokeList>
         {
           pokemon.filteredData.length > 0
-            ? pokemon.filteredData.map( pokemon => <PokeCard key={ pokemon.name } data={ pokemon }/>)
-            : pokemon.data.map( pokemon => <PokeCard key={ pokemon.name } data={ pokemon }/>)
+            ? pokemon.filteredData.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
+            : pokemon.data.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
         }
       </PokeList>
 

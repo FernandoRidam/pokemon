@@ -1,6 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles( theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    paddingTop: 85,
+  },
+
   appBar: {
     position: 'fixed',
     top: 0,
@@ -18,6 +27,11 @@ const useStyles = makeStyles( theme => ({
     height: 55,
   },
 
+  logoCompeti: {
+    width: 150,
+    height: 38,
+  },
+
   search: {
     width: '40%',
     minWidth: 175,
@@ -25,18 +39,50 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: '#FFF',
   },
 
-  logoCompeti: {
-    width: 150,
-    height: 38,
+  drawerContent: {
+    padding: 0,
+    width: 305,
+    height: '100%',
+    backgroundColor: theme.palette.background.default,
+  },
+
+  drawerHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 85,
+    backgroundColor: theme.palette.primary.main,
+  },
+
+  username: {
+    fontSize: 19,
+    color: '#FFF'
+  },
+
+  active: {
+    color: theme.palette.primary.main,
+  },
+
+  drawerFooter: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: 0,
+  },
+
+  logout: {
+    color: theme.palette.error.main,
   },
 
   container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 0,
-    paddingTop: 85,
+    paddingTop: 40,
+  },
+
+  body: {
+    backgroundColor: '#D4C3A3'
   },
 }));
 
