@@ -4,15 +4,14 @@ import {
   BrowserRouter,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 
 import {
   StateProvider,
 } from './store';
 
-import {
-  Main,
-} from './pages';
+import routerConfig from './config/routes';
 
 import {
   Layout,
@@ -20,14 +19,18 @@ import {
 
 export default function Routes() {
   return (
-    <StateProvider>
-      <Layout>
-        <BrowserRouter>
+    <BrowserRouter>
+      <StateProvider>
+        <Layout>
           <Switch>
-            <Route path="/" exact component={ Main } />
+            <Route path="/" exact>
+              <Redirect to={ routerConfig.initial } />
+            </Route>
+
+            { routerConfig.routes.map( route => <Route key={ route.id } { ...route } />)}
           </Switch>
-        </BrowserRouter>
-      </Layout>
-    </StateProvider>
+        </Layout>
+      </StateProvider>
+    </BrowserRouter>
   );
 };

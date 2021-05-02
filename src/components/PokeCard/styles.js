@@ -1,4 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(( theme ) => ({
   pokeCard: {
@@ -11,16 +13,41 @@ const useStyles = makeStyles(( theme ) => ({
     border: 'solid',
     borderWidth: 2,
     borderColor: '#100B16',
+
+    '&:hover': {
+      '& $actions': {
+        opacity: 1,
+        width: '100%',
+        height: '100%',
+        padding: 15,
+        transform: 'scale( 1 )'
+      }
+    }
   },
 
   pokeImage: {
     width: 225,
     height: 225,
+    opacity: .4
+  },
+
+  pokeIcon: {
+    position: 'absolute',
+    right: 2,
+    bottom: 2,
+    width: 145,
+    height: 145,
   },
 
   pokeImageMobile: {
     width: 105,
     height: 105,
+  },
+
+  pokeImageAlt: {
+    opacity: .1,
+    padding: 5,
+    transform: 'rotate( -15deg )',
   },
 
   pokeName: {
@@ -37,25 +64,6 @@ const useStyles = makeStyles(( theme ) => ({
     border: 'solid',
     borderWidth: 2,
     borderColor: '#100B16',
-  },
-
-  pokeType: {
-    position: 'absolute',
-    top: - 15,
-    right: 5,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 3,
-    minWidth: 65,
-    backgroundColor: ({ typeColor }) => typeColor,
-    color: '#FFF'
-  },
-
-  pokeTypeCenter: {
-    top: 'auto',
-    right: 'auto',
-    bottom: 10,
   },
 
   pokeIdView: {
@@ -83,6 +91,23 @@ const useStyles = makeStyles(( theme ) => ({
     fontSize: 21,
     color: '#FFF',
     transform: 'rotate( 45deg )'
+  },
+
+  actions: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 0,
+    width: 0,
+    height: 0,
+    backgroundColor: '#0008',
+    opacity: 0,
+    color: '#FFF',
+
+    transition: 'all .4s',
+    transform: 'scale( 0 )'
   },
 }));
 

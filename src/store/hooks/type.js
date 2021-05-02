@@ -12,7 +12,7 @@ import {
   transformType,
 } from '../../utils/helpers';
 
-export default function useMovies() {
+export function useType() {
   const [ data, setData ] = useState([]);
   const [ loading, setLoading ] = useState( false );
 

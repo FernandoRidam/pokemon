@@ -13,7 +13,7 @@ import {
   transformPokemon,
 } from '../../utils/helpers';
 
-export default function useMovies() {
+export function usePokemon() {
   const [ loading, setLoading ] = useState( false );
 
   const [ data, setData ] = useState([]);
@@ -70,8 +70,6 @@ export default function useMovies() {
   }, []);
 
   const handleFilter = useCallback(() => {
-    console.log( type );
-
     if( type || search ) {
       if( type ) {
         if( filteredData.length > 0 && search ) {

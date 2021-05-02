@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useState,
+  useEffect,
+} from 'react';
 
 import {
   Container,
@@ -8,27 +11,64 @@ import {
   Hidden,
   Link,
   IconButton,
+  Modal,
+  Paper,
+  Toolbar,
+  Typography,
+  SwipeableDrawer,
+  ListItemIcon,
+  ListItem,
+  ListItemText,
 } from '@material-ui/core';
 
 import {
+  useHistory,
+  useRouteMatch,
+} from 'react-router-dom';
+
+import {
   Close,
+  Menu,
+  ExitToApp,
 } from '@material-ui/icons';
 
 import {
   useStore
 } from '../../store';
 
+import routeConfig from '../../config/routes';
+
 import logo from '../../assets/logo.png';
 import competi from '../../assets/competi.png';
+
+import {
+  ModalLogin,
+} from '../ModalLogin';
+
+import {
+  ModalPokemon,
+} from '../ModalPokemon';
 
 import useStyles from './styles';
 
 export function Layout({ children }) {
+  const iOS = process.browser && /iPad|iPhone|iPod/.test( navigator.userAgent );
+
   const {
     pokemon,
+    user,
+    modalLogin,
   } = useStore();
 
   const Styles = useStyles();
+
+  const [ openDrawer, setOpenDrawer ] = useState( false );
+
+  function handleLogout() {
+    setOpenDrawer( false );
+
+    user.logOut();
+  };
 
   return (
     <Container className={ Styles.container }>
@@ -36,6 +76,12 @@ export function Layout({ children }) {
         <Hidden smDown>
           <Link href="https://pokeapi.co/" target="_blank">
             <img src={ logo } alt="Pokemon" className={ Styles.logoPokemon }/>
+          </Link>
+        </Hidden>
+
+        <Hidden smDown>
+          <Link href="https://competisistemas.com.br/" target="_blank">
+            <img src={ competi } alt="Competi" className={ Styles.logoCompeti }/>
           </Link>
         </Hidden>
 
@@ -59,22 +105,110 @@ export function Layout({ children }) {
           }}
         />
 
-        <Button
-          variant="contained"
-          color="secondary"
-          className={ Styles.button }
-        >
-          Login
-        </Button>
-
-        <Hidden smDown>
-          <Link href="https://competisistemas.com.br/" target="_blank">
-            <img src={ competi } alt="Competi" className={ Styles.logoCompeti }/>
-          </Link>
-        </Hidden>
+        {
+          !user.data
+            ? <Button
+                variant="contained"
+                color="secondary"
+                onClick={ modalLogin.openModal }
+              >
+                Login
+              </Button>
+            : <IconButton
+                color="inherit"
+                onClick={() => setOpenDrawer( true )}
+              >
+                <Menu />
+              </IconButton>
+        }
       </AppBar>
 
-      { children }
+      {
+        user.data &&
+          <SwipeableDrawer
+            anchor="right"
+            open={ openDrawer }
+            onOpen={() => setOpenDrawer( true )}
+            onClose={() => setOpenDrawer( false )}
+            disableBackdropTransition={ !iOS }
+            disableDiscovery={ iOS }
+          >
+            <Container className={ Styles.drawerContent }>
+              <Container className={ Styles.drawerHeader }>
+                <Typography
+                  variant="body1"
+                  className={ Styles.username }
+                >
+                  { user.data.username }
+                </Typography>
+
+                <IconButton
+                  color="inherit"
+                  className={ Styles.username }
+                  onClick={() => setOpenDrawer( false )}
+                >
+                  <Close />
+                </IconButton>
+              </Container>
+
+              {
+                routeConfig.routes.map( route => <MenuItemPath key={ route.id } route={ route } close={() => setOpenDrawer( false )}/>)
+              }
+
+              <ListItem button onClick={ handleLogout }>
+                <ListItemIcon>
+                  <ExitToApp color="error"/>
+                </ListItemIcon>
+
+                <ListItemText>
+                  <Typography variant="body1" color="error">Logout</Typography>
+                </ListItemText>
+              </ListItem>
+            </Container>
+          </SwipeableDrawer>
+      }
+
+      <Container maxWidth={ false } className={ Styles.container }>
+        <Container maxWidth="md" className={ Styles.body }>
+          { children }
+        </Container>
+      </Container>
+
+      <ModalLogin />
+      <ModalPokemon />
     </Container>
   );
+};
+
+function MenuItemPath({ route, close }) {
+  const history = useHistory();
+
+  const Styles = useStyles();
+
+  const match = useRouteMatch( route.path );
+
+  function handleClick() {
+    if( route.path ) {
+      history.push( route.path );
+
+      close();
+    }
+  };
+
+  return (
+    <ListItem
+      button
+      onClick={ handleClick }
+      selected={ !!match }
+    >
+      <ListItemIcon>
+        <route.icon className={ !!match && Styles.active }/>
+      </ListItemIcon>
+
+      <ListItemText
+        className={ !!match && Styles.active }
+        primary={ route.label }
+      />
+    </ListItem>
+  )
 };
