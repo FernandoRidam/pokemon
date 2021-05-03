@@ -2,6 +2,7 @@ import {
   useState,
   useCallback,
   useMemo,
+  useEffect,
 } from 'react';
 
 export function useUser() {
@@ -11,32 +12,45 @@ export function useUser() {
 
   const logIn = useCallback(( username ) => {
     setData({ username });
+    localStorage.setItem('PokeApp@User', JSON.stringify({ username }));
   }, []);
 
   const logOut = useCallback(() => {
     setData( null );
+    localStorage.removeItem('PokeApp@User');
 
     setMyPokemon([]);
+    localStorage.removeItem('PokeApp@MyPokemons');
   }, []);
 
   const capturePokemon = useCallback(( pokemon ) => {
-    setMyPokemon(
-      [ ...myPokemon, pokemon ]
-        .sort(( firstEl, secondEl ) => {
-          return firstEl.name < secondEl.name ? -1 : 1;
-        })
-    )
+    const myPokemons = [ ...myPokemon, pokemon ]
+      .sort(( firstEl, secondEl ) => {
+        return firstEl.name < secondEl.name ? -1 : 1;
+      });
+
+    setMyPokemon( myPokemons );
+    localStorage.setItem('PokeApp@MyPokemons', JSON.stringify( myPokemons ));
   }, [ myPokemon ]);
 
   const releasePokemon = useCallback(( pokemonIndex ) => {
-    setMyPokemon(
-      myPokemon
-        .filter(( pokemon, index ) => pokemonIndex !== index )
-        .sort(( firstEl, secondEl ) => {
-          return firstEl.name < secondEl.name ? -1 : 1;
-        })
-    )
+    const myPokemons = myPokemon
+      .filter(( pokemon, index ) => pokemonIndex !== index )
+      .sort(( firstEl, secondEl ) => {
+        return firstEl.name < secondEl.name ? -1 : 1;
+      })
+
+    setMyPokemon( myPokemons );
+    localStorage.setItem('PokeApp@MyPokemons', JSON.stringify( myPokemons ));
   }, [ myPokemon ]);
+
+  useEffect(() => {
+    const user = JSON.parse( localStorage.getItem('PokeApp@User'));
+    const myPokemons = JSON.parse( localStorage.getItem('PokeApp@MyPokemons'));
+
+    setData( user );
+    setMyPokemon( myPokemons || []);
+  }, []);
 
   return useMemo(() => ({
     data,
