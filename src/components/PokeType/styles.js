@@ -6,23 +6,26 @@ const useStyles = makeStyles( theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 3,
+    padding: 5,
     marginRight: 5,
     minWidth: 65,
     backgroundColor: ({ typeColor }) => typeColor,
     color: '#FFF'
   },
 
-  pokeTypeCenter: {
-    top: 'auto',
-    right: 'auto',
-    bottom: 15,
-  },
-
   absolute: {
     position: 'absolute',
     top: - 15,
     right: 5,
+    bottom: 'auto',
+    left: 'auto',
+  },
+
+  pokeTypeCenter: {
+    top: 'auto',
+    right: 'auto',
+    bottom: 10,
+    left: 15,
   },
 }));
 

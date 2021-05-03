@@ -34,6 +34,7 @@ const useStyles = makeStyles( theme => ({
   },
 
   modalTitle: {
+    zIndex: 1,
     flex: '1 1 100%',
     color: theme.palette.primary.contrastText,
     fontSize: 25,
@@ -167,17 +168,17 @@ const useStyles = makeStyles( theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    padding: 5,
+    padding: 15,
   },
 
   action: {
     width: '75%',
-    borderColor: ({ typeColor }) => typeColor && typeColor,
-    color: ({ typeColor }) => typeColor && typeColor,
+    backgroundColor: ({ typeColor }) => typeColor && typeColor,
+    // color: ({ typeColor }) => typeColor && typeColor,
 
     '&:hover': {
-      borderColor: ({ typeColor }) => typeColor && darken( typeColor, .3 ),
-      color: ({ typeColor }) => typeColor && darken( typeColor, .3 ),
+      backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .3 ),
+      // color: ({ typeColor }) => typeColor && darken( typeColor, .3 ),
     }
   },
 }));

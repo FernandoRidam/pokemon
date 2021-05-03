@@ -13,7 +13,7 @@ export function PokeType({ type, center, absolute }) {
   const Styles = useStyles({ typeColor: typeColors[ type ]});
 
   return (
-    <Paper className={`${ Styles.pokeType } ${ center && Styles.pokeTypeCenter } ${ absolute && Styles.absolute }`}>
+    <Paper className={`${ Styles.pokeType } ${ absolute && Styles.absolute } ${ center && Styles.pokeTypeCenter }`}>
       <Typography>{ type }</Typography>
     </Paper>
   );

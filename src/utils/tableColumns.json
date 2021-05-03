@@ -1,0 +1,25 @@
+[
+  {
+    "id": "photo",
+    "align": "center",
+    "label": "Photo"
+  },
+
+  {
+    "id": "name",
+    "align": "left",
+    "label": "Name"
+  },
+
+  {
+    "id": "type",
+    "align": "center",
+    "label": "Type"
+  },
+
+  {
+    "id": "actions",
+    "align": "center",
+    "label": "Actions"
+  }
+]

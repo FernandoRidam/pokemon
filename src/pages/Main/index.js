@@ -41,13 +41,17 @@ export function Main() {
 
       <PokeList>
         {
-          pokemon.filteredData.length > 0
-            ? pokemon.filteredData.map( pokemon => <PokeCard key={ pokemon.name } data={ pokemon }/>)
-            : pokemon.data.map( pokemon => <PokeCard key={ pokemon.name } data={ pokemon }/>)
+          pokemon.dataPage.map( pokemon => <PokeCard key={ pokemon.name } data={ pokemon }/>)
         }
       </PokeList>
 
-      <Footer />
+      <Divider />
+
+      <Footer>
+        {
+          pokemon.randomData.map( pokemon => <PokeCard center key={ pokemon.name } data={ pokemon }/>)
+        }
+      </Footer>
     </>
   );
 };

@@ -82,7 +82,12 @@ const useStyles = makeStyles( theme => ({
   },
 
   body: {
-    backgroundColor: '#D4C3A3'
+    backgroundColor: '#D4C3A3',
+    paddingBottom: 25,
+  },
+
+  alert: {
+    marginTop: 75,
   },
 }));
 

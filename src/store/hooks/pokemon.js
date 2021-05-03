@@ -9,15 +9,18 @@ import {
   getPokemon,
 } from '../../services';
 
+import pagination from '../../utils/pagination';
+
 import {
   transformPokemon,
 } from '../../utils/helpers';
 
 export function usePokemon() {
-  const [ loading, setLoading ] = useState( false );
-
   const [ data, setData ] = useState([]);
+  const [ dataPage, setDataPage ] = useState([]);
   const [ filteredData, setFilteredData ] = useState([]);
+
+  const [ randomData, setRandomData ] = useState([]);
 
   const [ type, setType ] = useState( null );
   const [ search, setSearch ] = useState( null );
@@ -28,27 +31,19 @@ export function usePokemon() {
   const [ page, setPage ] = useState( 1 );
 
   const loadPokemon = useCallback( async () => {
-    setLoading( true );
-
-    const offset = ( page - 1 ) * limit;
-
     try {
-      const { success, pokemon, count } = await getPokemon( offset, limit );
+      const { success, pokemon, count } = await getPokemon();
 
       if( !success ) return false;
 
       setData( pokemon.map( pokemon => transformPokemon( pokemon )));
       setPages( Math.ceil( count / limit ));
 
-      setLoading( false );
-
       return true;
     } catch ( error ) {
-      setLoading( false );
-
       return false;
     }
-  }, [ page, limit ]);
+  }, []);
 
   const clearPokemon = useCallback(() => {
     setData([]);
@@ -56,9 +51,6 @@ export function usePokemon() {
 
   const handleChangePage = useCallback(( page ) => {
     setPage( page );
-
-    setType( null );
-    setSearch( null );
   }, []);
 
   const handleChangeType = useCallback(( type ) => {
@@ -69,54 +61,55 @@ export function usePokemon() {
     setSearch( search );
   }, []);
 
-  const handleFilter = useCallback(() => {
-    if( type || search ) {
+  useEffect(() => {
+    const ids = [];
+
+    while( ids.length < 5 ) {
+      var r = Math.floor( Math.random() * 1118 ) + 1;
+
+      if( ids.indexOf( r ) === -1 ) ids.push( r );
+    }
+
+    setTimeout(() => {
+      setRandomData( data.filter( pokemon => ids.includes( pokemon.id )));
+    }, 3000);
+  }, [ data ]);
+
+  useEffect(() => {
+    if( !type && !search ) setFilteredData([]);
+
+    if( type && search ) {
+      setFilteredData( data.filter( pokemon => pokemon.name.toLowerCase().includes( search.toLowerCase()) && pokemon.types.includes( type.name )))
+    } else {
       if( type ) {
-        if( filteredData.length > 0 && search ) {
-          setFilteredData( filteredData.filter( pokemon => pokemon.type === type.name ));
-        } else {
-          setFilteredData( data.filter( pokemon => pokemon.type === type.name ));
-        }
+        setFilteredData( data.filter( pokemon => pokemon.types.includes( type.name )));
       }
 
       if( search ) {
-        if( filteredData.length > 0 && type ) {
-          setFilteredData(
-            filteredData.filter( pokemon =>
-              pokemon.type.toLowerCase().includes( search.toLowerCase()) ||
-              pokemon.name.toLowerCase().includes( search.toLowerCase())
-            )
-          );
-        } else {
-          setFilteredData(
-            data.filter( pokemon =>
-              pokemon.type.toLowerCase().includes( search.toLowerCase()) ||
-              pokemon.name.toLowerCase().includes( search.toLowerCase())
-            )
-          );
-        }
+        setFilteredData( data.filter( pokemon => pokemon.name.toLowerCase().includes( search.toLowerCase())));
       }
-    } else {
-      setFilteredData([]);
     }
-  }, [ type, search, data, filteredData ]);
-
-  useEffect(() => {
-    handleFilter();
-
-    // eslint-disable-next-line
   }, [ type, search ]);
 
-  useEffect(() => {
-    loadPokemon();
+  useEffect( async () => {
+    if( filteredData.length > 0 ) {
+      setDataPage( await pagination( filteredData, limit, page ));
+
+      setPages( Math.ceil( filteredData.length / limit ));
+    } else {
+      setDataPage( await pagination( data, limit, page ));
+
+      setPages( Math.ceil( data.length / limit ));
+    }
 
     // eslint-disable-next-line
-  }, [ page ]);
+  }, [ page, data, filteredData ]);
 
   return useMemo(() => ({
     data,
+    dataPage,
     filteredData,
-    loading,
+    randomData,
     pages,
     type,
     search,
@@ -127,8 +120,9 @@ export function usePokemon() {
     handleChangeSearch,
   }), [
     data,
+    dataPage,
     filteredData,
-    loading,
+    randomData,
     pages,
     type,
     search,
