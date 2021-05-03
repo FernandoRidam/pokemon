@@ -25,8 +25,8 @@ export function Main() {
   } = useStore();
 
   useEffect(() => {
-    pokemon.loadPokemon();
-    type.loadTypes();
+    if( pokemon.data.length < 1 ) pokemon.loadPokemon();
+    if( type.data.length < 1 ) type.loadTypes();
 
     // eslint-disable-next-line
   }, []);

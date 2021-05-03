@@ -86,7 +86,7 @@ export function usePokemon() {
       }
 
       if( search ) {
-        setFilteredData( data.filter( pokemon => pokemon.name.toLowerCase().includes( search.toLowerCase())));
+        setFilteredData( data.filter( pokemon => pokemon.name.toLowerCase().includes( search.toLowerCase()) || pokemon.types.map( type => type.toLowerCase()).includes( search.toLowerCase())));
       }
     }
   }, [ type, search ]);
