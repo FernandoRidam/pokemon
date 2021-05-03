@@ -9,4 +9,4 @@ Aplicação em ReactJs para buscar, listar e detalhar pokémons, usando a API [P
 ### Na raiz do projeto
 Rodar comando `yarn install` ou `npm install`.\
 Criar arquivo `.env` seguinto o `.env.example`.\
-Rodar comando `yarn start` ou `npm start`.\
+Rodar comando `yarn start` ou `npm start`.
