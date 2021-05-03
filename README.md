@@ -1,12 +1,15 @@
-# Getting Started with Create React App
+<img src="/src/assets/logo.png" height="55">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pokemon App
 
-## Available Scripts
+Aplicação em ReactJs para buscar, listar e detalhar pokémons, usando a API [Pokeapi](https://pokeapi.co/).
 
-In the project directory, you can run:
+## Para Testar
 
-### `yarn start`
+### Na raiz do projeto
+Rodar comando `yarn install` ou `npm install`.
+Criar arquivo `.env` seguinto o `.env.example`.
+Rodar comando `yarn start` ou `npm start`.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
