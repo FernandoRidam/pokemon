@@ -42,7 +42,7 @@ export function ModalPokemon() {
     >
       <Paper className={ Styles.modalView }>
         <Toolbar className={ Styles.modalToolbar }>
-          <Typography className={ Styles.modalTitle } variant="h6">{ modalPokemon.data?.name }</Typography>
+          <Typography noWrap className={ Styles.modalTitle } variant="h6">{ modalPokemon.data?.name }</Typography>
 
           <PokeType type={ modalPokemon.data?.type } />
         </Toolbar>
@@ -85,9 +85,9 @@ export function ModalPokemon() {
                   modalPokemon.data?.stats.map(( stat, index ) =>
                     <Grid key={ stat.key } item xs={ 6 }>
                       <Paper className={`${ Styles.stat } ${ Styles[ stat.key ]}`}>
-                        <Typography variant="body1" align="center" className={ Styles.label }>{ stat.label }</Typography>
+                        <Typography noWrap variant="body1" align="center" className={ Styles.label }>{ stat.label }</Typography>
 
-                        <Typography variant="body1" align="center" className={ Styles.statNumber }>{ stat.stat }</Typography>
+                        <Typography noWrap variant="body1" align="center" className={ Styles.statNumber }>{ stat.stat }</Typography>
                       </Paper>
                     </Grid>
                   )
@@ -99,7 +99,7 @@ export function ModalPokemon() {
           <Container className={ Styles.actions }>
             <Button
               color="primary"
-              variant="outlined"
+              variant="contained"
               size="large"
               className={ Styles.action }
               onClick={ modalPokemon.closeModal }

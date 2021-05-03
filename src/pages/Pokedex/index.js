@@ -4,14 +4,16 @@ import React, {
 
 import {
   Divider,
+  Typography,
+  TableRow,
+  TableCell,
 } from '@material-ui/core';
 
 import {
   Footer,
   Header,
-  PokeList,
-  PokeCard,
-  SelectType,
+  PokeTable,
+  PokeRow,
 } from '../../components';
 
 import {
@@ -20,25 +22,28 @@ import {
 
 export function Pokedex() {
   const {
-    type,
-    pokemon,
+    user,
   } = useStore();
 
   return (
     <>
       <Header>
-        <SelectType />
+        <Typography noWrap variant="h6">Pokedex { user.data?.username }</Typography>
       </Header>
 
       <Divider />
 
-      <PokeList>
+      <PokeTable>
         {
-          pokemon.filteredData.length > 0
-            ? pokemon.filteredData.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
-            : pokemon.data.map( pokemon => <PokeCard key={ pokemon.name } pokemon={ pokemon }/>)
+          user.myPokemon.length > 0
+            ? user.myPokemon.map(( pokemon, index ) => <PokeRow key={ index } pokemon={{ ...pokemon, index }} />)
+            : <TableRow>
+                <TableCell colSpan={ 4 } align="center">
+                  <Typography noWrap variant="h6">No Pokemon Captured</Typography>
+                </TableCell>
+              </TableRow>
         }
-      </PokeList>
+      </PokeTable>
 
       <Footer />
     </>

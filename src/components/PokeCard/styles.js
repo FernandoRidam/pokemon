@@ -2,6 +2,10 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 
+import {
+  darken,
+} from '@material-ui/core/styles/colorManipulator';
+
 const useStyles = makeStyles(( theme ) => ({
   pokeCard: {
     position: 'relative',
@@ -9,7 +13,7 @@ const useStyles = makeStyles(( theme ) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#B4ADBE',
+    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .6 ),
     border: 'solid',
     borderWidth: 2,
     borderColor: '#100B16',
@@ -56,7 +60,8 @@ const useStyles = makeStyles(( theme ) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    wminWidth: '60%',
+    minWidth: '60%',
+    maxWidth: '95%',
     padding: 5,
     backgroundColor: theme.palette.primary.main,
     color: '#FFF',
@@ -108,6 +113,24 @@ const useStyles = makeStyles(( theme ) => ({
 
     transition: 'all .4s',
     transform: 'scale( 0 )'
+  },
+
+  view: {
+    backgroundColor: '#49DBDF',
+    color: '#FFF',
+
+    '&:hover': {
+      backgroundColor: '#49DBDF',
+    }
+  },
+
+  add: {
+    backgroundColor: '#3AA05B',
+    color: '#FFF',
+
+    '&:hover': {
+      backgroundColor: '#3AA05B',
+    }
   },
 }));
 

@@ -11,15 +11,17 @@ import {
   Hidden,
   Link,
   IconButton,
-  Modal,
-  Paper,
-  Toolbar,
   Typography,
   SwipeableDrawer,
   ListItemIcon,
   ListItem,
   ListItemText,
+  Snackbar,
 } from '@material-ui/core';
+
+import {
+  Alert,
+} from '@material-ui/lab';
 
 import {
   useHistory,
@@ -54,10 +56,13 @@ import useStyles from './styles';
 export function Layout({ children }) {
   const iOS = process.browser && /iPad|iPhone|iPod/.test( navigator.userAgent );
 
+  const fourSeconds = 4000;
+
   const {
     pokemon,
     user,
     modalLogin,
+    alert,
   } = useStore();
 
   const Styles = useStyles();
@@ -136,6 +141,7 @@ export function Layout({ children }) {
             <Container className={ Styles.drawerContent }>
               <Container className={ Styles.drawerHeader }>
                 <Typography
+                  noWrap
                   variant="body1"
                   className={ Styles.username }
                 >
@@ -161,7 +167,7 @@ export function Layout({ children }) {
                 </ListItemIcon>
 
                 <ListItemText>
-                  <Typography variant="body1" color="error">Logout</Typography>
+                  <Typography noWrap variant="body1" color="error">Logout</Typography>
                 </ListItemText>
               </ListItem>
             </Container>
@@ -176,6 +182,21 @@ export function Layout({ children }) {
 
       <ModalLogin />
       <ModalPokemon />
+
+      <Snackbar
+        open={ alert.open }
+        autoHideDuration={ fourSeconds }
+        onClose={ alert.closeAlert }
+        anchorOrigin={{ vertical: 'top', horizontal: 'right'}}
+        className={ Styles.alert }
+      >
+        <Alert
+          severity="success"
+          onClose={ alert.closeAlert }
+        >
+          { alert.message }
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

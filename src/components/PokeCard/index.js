@@ -34,6 +34,7 @@ export function PokeCard({ data, center }) {
     user,
     modalLogin,
     modalPokemon,
+    alert,
   } = useStore();
 
   function handleCapture() {
@@ -41,6 +42,8 @@ export function PokeCard({ data, center }) {
       modalLogin.openModal();
     } else {
       user.capturePokemon( data );
+
+      alert.openAlert('Pokemon Successfully Captured!');
     }
   };
 
@@ -48,27 +51,49 @@ export function PokeCard({ data, center }) {
     modalPokemon.openModal( data );
   };
 
-  const PokeInfo = () => {
+  const PokeInfo = ({ center }) => {
     return (
       <>
         <Paper className={ Styles.actions }>
-          <IconButton
-            color="inherit"
-            onClick={ handleView }
-          >
-            <RemoveRedEye />
-          </IconButton>
+          {/* Mobile */}
+          <Hidden only={['sm', 'md', 'lg', 'xl']}>
+            <IconButton
+              onClick={ handleView }
+              className={ Styles.view }
+              size="small"
+            >
+              <RemoveRedEye />
+            </IconButton>
 
-          <IconButton
-            color="inherit"
-            onClick={ handleCapture }
-          >
-            <Add />
-          </IconButton>
+            <IconButton
+              onClick={ handleCapture }
+              className={ Styles.add }
+              size="small"
+            >
+              <Add />
+            </IconButton>
+          </Hidden>
+
+          {/* Web */}
+          <Hidden only={['xs']}>
+            <IconButton
+              onClick={ handleView }
+              className={ Styles.view }
+            >
+              <RemoveRedEye />
+            </IconButton>
+
+            <IconButton
+              onClick={ handleCapture }
+              className={ Styles.add }
+            >
+              <Add />
+            </IconButton>
+          </Hidden>
         </Paper>
 
         <Paper className={ Styles.pokeName }>
-          <Typography>{ data?.name }</Typography>
+          <Typography noWrap>{ data?.name }</Typography>
         </Paper>
 
         <PokeType
@@ -87,7 +112,7 @@ export function PokeCard({ data, center }) {
   return (
     <>
       {/* Mobile */}
-      <Hidden only={['md', 'lg', 'xl']}>
+      <Hidden only={['sm', 'md', 'lg', 'xl']}>
         <Grid item xs={ 6 }>
           <Paper className={ Styles.pokeCard }>
             <img
@@ -103,7 +128,7 @@ export function PokeCard({ data, center }) {
       </Hidden>
 
       {/* Web */}
-      <Hidden only={['xs', 'sm']}>
+      <Hidden only={['xs']}>
         <Grid item md={ 4 }>
           <Paper className={ Styles.pokeCard }>
             <img
@@ -122,7 +147,8 @@ export function PokeCard({ data, center }) {
                   id="poke-img"
                 />
             }
-            <PokeInfo />
+
+            <PokeInfo center={ center }/>
           </Paper>
         </Grid>
       </Hidden>

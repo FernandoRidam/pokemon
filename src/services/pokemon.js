@@ -1,10 +1,10 @@
 import api from '../config/api';
 
-export async function getPokemon( offset, limit = 6 ) {
+export async function getPokemon() {
   const { data } = await api.get('/pokemon', {
     params: {
-      offset,
-      limit,
+      offset: 0,
+      limit: 1118,
     },
   });
 

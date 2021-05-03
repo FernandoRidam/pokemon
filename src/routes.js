@@ -9,6 +9,7 @@ import {
 
 import {
   StateProvider,
+  useStore
 } from './store';
 
 import routerConfig from './config/routes';
@@ -22,15 +23,37 @@ export default function Routes() {
     <BrowserRouter>
       <StateProvider>
         <Layout>
-          <Switch>
-            <Route path="/" exact>
-              <Redirect to={ routerConfig.initial } />
-            </Route>
-
-            { routerConfig.routes.map( route => <Route key={ route.id } { ...route } />)}
-          </Switch>
+          <SwitchRouter />
         </Layout>
       </StateProvider>
     </BrowserRouter>
+  );
+};
+
+function SwitchRouter() {
+  const {
+    user,
+  } = useStore();
+
+  return (
+    <Switch>
+      {
+        user.data
+          ? <>
+              <Route path="/" exact>
+                <Redirect to={ routerConfig.initial } />
+              </Route>
+
+              { routerConfig.routes.map( route => <Route key={ route.id } { ...route } />)}
+            </>
+          : <>
+              <Route path="/*" exact>
+                <Redirect to={ routerConfig.initial } />
+              </Route>
+
+              <Route { ...routerConfig.routes[ 0 ]}/>
+            </>
+      }
+    </Switch>
   );
 };

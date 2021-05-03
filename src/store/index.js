@@ -9,6 +9,7 @@ import {
   useUser,
   useModalLogin,
   useModalPokemon,
+  useAlert,
 } from './hooks';
 
 export const store = createContext({
@@ -23,8 +24,8 @@ export const store = createContext({
 
   pokemon: {
     data: [],
-    filteredData: [],
-    loading: false,
+    dataPage: [],
+    randomData: [],
     pages: 0,
     type: '',
     search: '',
@@ -58,6 +59,13 @@ export const store = createContext({
     openModal: ( data ) => {},
     closeModal: () => {},
   },
+
+  alert: {
+    open: false,
+    message: null,
+    openAlert: ( message ) => {},
+    closeAlert: () => {},
+  },
 });
 
 const { Provider } = store;
@@ -68,6 +76,7 @@ export function StateProvider({ children }) {
   const user = useUser();
   const modalLogin = useModalLogin();
   const modalPokemon = useModalPokemon();
+  const alert = useAlert();
 
   return (
     <Provider
@@ -77,6 +86,7 @@ export function StateProvider({ children }) {
         user,
         modalLogin,
         modalPokemon,
+        alert,
       }}
     >
       { children }

@@ -25,6 +25,7 @@ export function ModalLogin() {
   const {
     user,
     modalLogin,
+    alert,
   } = useStore();
 
   const [ username, setUsername ] = useState('');
@@ -33,6 +34,8 @@ export function ModalLogin() {
     user.logIn( username );
 
     modalLogin.closeModal();
+
+    alert.openAlert('Successfully Logged In!');
   };
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export function ModalLogin() {
     >
       <Paper className={ Styles.modalView }>
         <Toolbar className={ Styles.modalToolbar }>
-          <Typography className={ Styles.modalTitle } variant="h6">Login</Typography>
+          <Typography noWrap className={ Styles.modalTitle } variant="h6">Login</Typography>
         </Toolbar>
 
         <Container className={ Styles.bodyModal }>
