@@ -7,11 +7,12 @@ import {
 } from '@material-ui/core';
 
 import {
-  Footer,
   Header,
   PokeList,
   PokeCard,
   SelectType,
+  CarouselView,
+  CarouselItem,
 } from '../../components';
 
 import {
@@ -25,11 +26,20 @@ export function Main() {
   } = useStore();
 
   useEffect(() => {
-    if( pokemon.data.length < 1 ) pokemon.loadPokemon();
-    if( type.data.length < 1 ) type.loadTypes();
+    if( pokemon.data.length < 1 && type.data.length > 0 ) {
+      pokemon.loadPokemon();
+    }
 
     // eslint-disable-next-line
-  }, []);
+  }, [ pokemon.data.length, type.data.length ]);
+
+  useEffect(() => {
+    if( type.data.length < 1 ) {
+      type.loadTypes();
+    }
+
+    // eslint-disable-next-line
+  }, [ type.data.length ]);
 
   return (
     <>
@@ -47,11 +57,14 @@ export function Main() {
 
       <Divider />
 
-      <Footer>
-        {
-          pokemon.randomData.map( pokemon => <PokeCard center key={ pokemon.name } data={ pokemon }/>)
-        }
-      </Footer>
+      {
+        pokemon.randomData.length > 0 &&
+          <CarouselView>
+            {
+              pokemon.randomData.map( pokemon => <CarouselItem key={ pokemon.name }><PokeCard center data={ pokemon }/></CarouselItem>)
+            }
+          </CarouselView>
+      }
     </>
   );
 };

@@ -3,6 +3,7 @@ import React from 'react';
 import {
   Container,
   Grid,
+  CircularProgress,
 } from '@material-ui/core';
 
 import {
@@ -38,12 +39,19 @@ export function PokeList({ children }) {
           shape="rounded"
           size="small"
           onChange={( event, page ) => pokemon.handleChangePage( page )}
-          renderItem={( item ) => (
-            <PaginationItem
-              { ...item }
-              className={ Styles.paginationItem }
-            />
-          )}
+          renderItem={( item ) => {
+            if( pokemon.loading && item.page === pokemon.pages ) {
+              item.page = <CircularProgress color="inherit" size={ 14 }/>;
+              item.disabled = pokemon.loading;
+            }
+
+            return (
+              <PaginationItem
+                { ...item }
+                className={ Styles.paginationItem }
+              />
+            )
+          }}
         />
       </Container>
     </Container>

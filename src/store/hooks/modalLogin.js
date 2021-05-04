@@ -1,18 +1,19 @@
 import {
   useState,
   useMemo,
+  useCallback,
 } from 'react';
 
 export function useModalLogin() {
   const [ open, setOpen ] = useState( false );
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setOpen( true );
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setOpen( false );
-  };
+  }, []);
 
   return useMemo(() => ({
     open,

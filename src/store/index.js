@@ -26,6 +26,7 @@ export const store = createContext({
     data: [],
     dataPage: [],
     randomData: [],
+    loading: false,
     pages: 0,
     type: '',
     search: '',

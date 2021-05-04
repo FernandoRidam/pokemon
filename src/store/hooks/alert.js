@@ -2,6 +2,7 @@ import {
   useState,
   useMemo,
   useEffect,
+  useCallback,
 } from 'react';
 
 export function useAlert() {
@@ -10,7 +11,7 @@ export function useAlert() {
   const [ open, setOpen ] = useState( false );
   const [ message, setMessage ] = useState( null );
 
-  const openAlert = ( message ) => {
+  const openAlert = useCallback(( message ) => {
     setMessage( message );
 
     setOpen( true );
@@ -18,11 +19,13 @@ export function useAlert() {
     setTimeout(() => {
       closeAlert();
     }, fourSeconds );
-  };
 
-  const closeAlert = () => {
+    // eslint-disable-next-line
+  }, []);
+
+  const closeAlert = useCallback(() => {
     setOpen( false );
-  };
+  }, []);
 
   useEffect(() => {
     if( !open ) {

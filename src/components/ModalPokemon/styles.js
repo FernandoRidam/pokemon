@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import {
   darken,
-  lighten,
 } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles( theme => ({
@@ -82,11 +81,11 @@ const useStyles = makeStyles( theme => ({
   },
 
   hp: {
-    backgroundColor: ({ typeColor }) => typeColor && lighten( typeColor, .2 ),
+    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .1 ),
   },
 
   speed: {
-    backgroundColor: ({ typeColor }) => typeColor && typeColor,
+    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .1 ),
   },
 
   attack: {
@@ -94,7 +93,7 @@ const useStyles = makeStyles( theme => ({
   },
 
   defense: {
-    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .4 ),
+    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .2 ),
   },
 
   special_attack: {
@@ -102,7 +101,7 @@ const useStyles = makeStyles( theme => ({
   },
 
   special_defense: {
-    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .5 ),
+    backgroundColor: ({ typeColor }) => typeColor && darken( typeColor, .3 ),
   },
 
   label: {

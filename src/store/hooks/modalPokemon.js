@@ -1,6 +1,7 @@
 import {
   useState,
   useMemo,
+  useCallback,
 } from 'react';
 
 export function useModalPokemon() {
@@ -8,17 +9,17 @@ export function useModalPokemon() {
 
   const [ data, setData ] = useState( null );
 
-  const openModal = ( data ) => {
+  const openModal = useCallback(( data ) => {
     setData( data );
 
     setOpen( true );
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setData( null );
 
     setOpen( false );
-  };
+  }, []);
 
   return useMemo(() => ({
     open,
