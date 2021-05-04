@@ -1,6 +1,4 @@
-import React, {
-  useEffect,
-} from 'react';
+import React from 'react';
 
 import {
   Divider,
@@ -10,7 +8,6 @@ import {
 } from '@material-ui/core';
 
 import {
-  Footer,
   Header,
   PokeTable,
   PokeRow,
@@ -44,8 +41,6 @@ export function Pokedex() {
               </TableRow>
         }
       </PokeTable>
-
-      <Footer />
     </>
   );
 };

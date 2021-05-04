@@ -10,7 +10,7 @@ const orderStats = [
 export function transformPokemon( pokemon ) {
   const stats = [];
 
-  orderStats.map( statLabel => {
+  orderStats.forEach( statLabel => {
     pokemon.stats
       .filter( stat => stat.stat.name === statLabel )
       .map( stat => stats.push({

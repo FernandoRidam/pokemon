@@ -7,7 +7,7 @@ const useStyles = makeStyles( theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
-    paddingTop: 85,
+    paddingTop: 40,
   },
 
   appBar: {
@@ -74,11 +74,6 @@ const useStyles = makeStyles( theme => ({
 
   logout: {
     color: theme.palette.error.main,
-  },
-
-  container: {
-    padding: 0,
-    paddingTop: 40,
   },
 
   body: {
