@@ -28,7 +28,7 @@ export function usePokemon() {
 
   // eslint-disable-next-line
   const [ limit, setLimit ] = useState( 6 );
-  const [ count, setCount ] = useState( 6 );
+  const [ count, setCount ] = useState( 1118 );
   const [ pages, setPages ] = useState( 0 );
   const [ page, setPage ] = useState( 1 );
 
