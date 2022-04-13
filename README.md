@@ -2,7 +2,7 @@
 
 # Pokemon App
 
-Aplicação em ReactJs para buscar, listar e detalhar pokémons, usando a API [Pokeapi](https://pokeapi.co/).
+Aplicação em ReactJs para buscar, listar e detalhar pokémon, usando a API [Pokeapi](https://pokeapi.co/).
 
 ## Para Testar
 
