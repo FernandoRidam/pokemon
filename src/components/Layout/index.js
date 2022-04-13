@@ -40,7 +40,6 @@ import {
 import routeConfig from '../../config/routes';
 
 import logo from '../../assets/logo.png';
-import competi from '../../assets/competi.png';
 
 import {
   ModalLogin,
@@ -80,12 +79,6 @@ export function Layout({ children }) {
         <Hidden smDown>
           <Link href="https://pokeapi.co/" target="_blank">
             <img src={ logo } alt="Pokemon" className={ Styles.logoPokemon }/>
-          </Link>
-        </Hidden>
-
-        <Hidden smDown>
-          <Link href="https://competisistemas.com.br/" target="_blank">
-            <img src={ competi } alt="Competi" className={ Styles.logoCompeti }/>
           </Link>
         </Hidden>
 
